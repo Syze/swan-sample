@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { FileUploadDto } from './dto/fileUpload.dto';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 
@@ -7,17 +7,26 @@ import Swan from '@swan-admin/swan-ai-measurements';
 
 @Injectable()
 export class FileUploadService {
-  private swan: any;
+  private swan: Swan;
   constructor() {
-    // console.log(process.env.ACCESS_KEY);
-    console.log(Swan);
     this.swan = new Swan('7a338f76-e3ec-4788-9abd-ed1e408bc94e');
   }
 
-  uploadFile(fileUploadDto: FileUploadDto) {
-    // console.log(fileUploadDto);
-    // console.log(process.env.ACCESS_KEY);
-    // const data = { ...fileUploadDto };
-    // return swan.fileUpload.uploadFile(data);
+  async uploadFile(file: Express.Multer.File, fileUploadDto: FileUploadDto) {
+    try {
+      // const data = { ...fileUploadDto, file };
+      // console.log({file, ...fileUploadDto});
+      const data = {
+        scanId: fileUploadDto.scanId,
+        file,
+        arrayMetaData: JSON.parse(fileUploadDto.arrayMetaData),
+      };
+      // return data;
+      return await this.swan.fileUpload.uploadFile(data);
+    } catch (error) {
+      console.log(error);
+
+      throw new BadRequestException(error.message);
+    }
   }
 }

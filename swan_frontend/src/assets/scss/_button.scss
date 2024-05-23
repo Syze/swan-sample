@@ -1,0 +1,25 @@
+.button {
+    background-color: $color-primary;
+    color: $color-white;
+    border-radius: 10px;
+    border: 0;
+    outline: none;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    gap: 0 5px;
+    cursor: pointer;
+    padding: 10px 12px;
+    &:disabled {
+        background-color: $color-gray;
+        cursor: not-allowed;
+    }
+    &.full {
+        width: 100%;
+    }
+
+ 
+}

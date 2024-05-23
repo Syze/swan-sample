@@ -1,6 +1,5 @@
-import logo from "./logo.svg";
-import "./App.css";
-import FileUpload from "./components/FileUpload";
+import "../src/assets/scss/style.scss";
+import FileUpload from "./components/FileUpload/FileUpload";
 
 function App() {
   return (
