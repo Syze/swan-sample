@@ -24,7 +24,7 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
-    "@swan-admin/swan-ai-measurements": "^1.0.66",
+    "@swan-admin/swan-ai-measurements": "^1.0.77",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
     "ottoleads_log_aggregation": "^1.0.26",

@@ -35,7 +35,7 @@ const FileUpload = () => {
       const videoFile = new File([files], `${scan_id}.webm`, {
         type: files.type,
       });
-
+      console.log(videoFile);
       console.log(objMetaDataArray);
       const formData = new FormData();
       formData.append("file", videoFile);
