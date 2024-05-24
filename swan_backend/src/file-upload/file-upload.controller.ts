@@ -21,4 +21,9 @@ export class FileUploadController {
   ) {
     return this.fileUploadService.uploadFile(file, fileUploadDto);
   }
+
+  @Post('/')
+  getMeasurements(@Body() measurements: any) {
+    console.log(measurements);
+  }
 }

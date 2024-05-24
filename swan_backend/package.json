@@ -24,10 +24,9 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
-    "@swan-admin/swan-ai-measurements": "^1.0.77",
+    "@swan-admin/swan-ai-measurements": "^1.0.87",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
-    "ottoleads_log_aggregation": "^1.0.26",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"
