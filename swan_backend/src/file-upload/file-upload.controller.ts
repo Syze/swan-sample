@@ -31,6 +31,7 @@ export class FileUploadController {
 
   @Get('/measurements/:scan_id')
   getMeasurements(@Param('scan_id') scan_id: string) {
+    console.log(process.env.API_KEY);
     return this.fileUploadService.getMeasurements(scan_id);
   }
 }

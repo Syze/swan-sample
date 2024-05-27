@@ -54,8 +54,6 @@ const FileUpload = () => {
   };
   return (
     <div className={`${styles.fileUpload}`}>
-
-
       <h2>Upload files</h2>
       <form onSubmit={handleFileUpload}>
         <div className={`${styles.fileUpload__row}`}>
@@ -113,7 +111,7 @@ const FileUpload = () => {
             />
           </div>
         </div>
-        <Input type="file" onChange={handleChange} name="file" label="Focal length of device camera" value={files} accept="video/*" />
+        <Input type="file" onChange={handleChange} name="file" label="Video File" value={files} accept="video/*" />
         <button disabled={loading} className="button full" type="submit">
           Submit
         </button>

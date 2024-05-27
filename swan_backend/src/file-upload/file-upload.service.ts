@@ -6,7 +6,7 @@ import Swan from '@swan-admin/swan-ai-measurements';
 export class FileUploadService {
   private swan: Swan;
   constructor() {
-    this.swan = new Swan('7a338f76-e3ec-4788-9abd-ed1e408bc94e', true);
+    this.swan = new Swan(process.env.API_KEY);
   }
   async uploadFile(file: Express.Multer.File, fileUploadDto: FileUploadDto) {
     if (!file) {
@@ -35,8 +35,6 @@ export class FileUploadService {
       const res = await this.swan.measurement.getMeasurementResult(scan_id);
       return res?.data;
     } catch (error) {
-      console.log(error);
-
       throw new BadRequestException(error.message);
     }
   }
