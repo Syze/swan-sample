@@ -5,11 +5,11 @@ export function camelCaseToWords(s) {
 }
 const CustomTable = ({ data }) => {
   return (
-    <div>
+    
       <table>
         <thead>
           <tr>
-            <th>ID</th>
+            {/* <th>ID</th> */}
             <th>Name</th>
             <th>Value</th>
           </tr>
@@ -17,14 +17,14 @@ const CustomTable = ({ data }) => {
         <tbody>
           {data?.map((item) => (
             <tr key={item.id}>
-              <td>{item.id}</td>
+              {/* <td>{item.id}</td> */}
               <td>{item.name}</td>
-              <td>{item.value}</td>
+              <td><div className="trim">{item.value}</div></td>
             </tr>
           ))}
         </tbody>
       </table>
-    </div>
+
   );
 };
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Input from "../Input/Input";
 import ApiService from "../../services/ApiService";
 import styles from "./FileUpload.module.scss";
-import logo from "../../assets/images/logo.svg";
+
 import { toast } from "react-toastify";
 const apiService = new ApiService();
 const FileUpload = () => {
@@ -54,9 +54,7 @@ const FileUpload = () => {
   };
   return (
     <div className={`${styles.fileUpload}`}>
-      <div className={`${styles.fileUpload__logo}`}>
-        <img src={logo} alt="upload" />
-      </div>
+
 
       <h2>Upload files</h2>
       <form onSubmit={handleFileUpload}>
