@@ -1,6 +1,8 @@
 import {
   Body,
   Controller,
+  Get,
+  Param,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -22,8 +24,13 @@ export class FileUploadController {
     return this.fileUploadService.uploadFile(file, fileUploadDto);
   }
 
-  @Post('/')
-  getMeasurements(@Body() measurements: any) {
+  @Post('/webhook')
+  webHookMeasurements(@Body() measurements: any) {
     console.log(measurements);
+  }
+
+  @Get('/measurements/:scan_id')
+  getMeasurements(@Param('scan_id') scan_id: string) {
+    return this.fileUploadService.getMeasurements(scan_id);
   }
 }

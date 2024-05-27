@@ -3,13 +3,12 @@ import Input from "../Input/Input";
 import ApiService from "../../services/ApiService";
 import styles from "./FileUpload.module.scss";
 import logo from "../../assets/images/logo.svg";
-
-const scan_id = crypto.randomUUID();
+import { toast } from "react-toastify";
 const apiService = new ApiService();
 const FileUpload = () => {
+  const [loading, setLoading] = useState(false);
   const [objMetaData, setObjMetaData] = useState({
     gender: "",
-    scan_id,
     email: "",
     focal_length: "",
     height: "",
@@ -30,23 +29,29 @@ const FileUpload = () => {
 
   const handleFileUpload = async (event) => {
     event.preventDefault();
+    setLoading(true);
+    const scan_id = crypto.randomUUID();
     try {
-      const objMetaDataArray = Object.entries(objMetaData).map(([key, val]) => ({ [key]: val }));
-      const videoFile = new File([files], `${scan_id}.webm`, {
-        type: files.type,
-      });
-      console.log(videoFile);
-      console.log(objMetaDataArray);
       const formData = new FormData();
-      formData.append("file", videoFile);
+      if (files) {
+        const videoFile = new File([files], `${scan_id}.webm`, {
+          type: files?.type,
+        });
+        formData.append("file", videoFile);
+      }
+      const objMetaDataArray = Object.entries(objMetaData).map(([key, val]) => ({ [key]: val }));
+      objMetaDataArray.push({ scan_id });
       formData.append("scanId", scan_id);
       formData.append("arrayMetaData", JSON.stringify(objMetaDataArray));
       await apiService.fileUpload(formData);
+      toast.success(`This is your scan id: ${scan_id} `);
     } catch (error) {
       console.log(error);
+      toast.error(error?.response?.data?.message || "something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
-
   return (
     <div className={`${styles.fileUpload}`}>
       <div className={`${styles.fileUpload__logo}`}>
@@ -70,7 +75,7 @@ const FileUpload = () => {
         </div>
         <div className={`${styles.fileUpload__row}`}>
           <div className={`${styles.fileUpload__col}`}>
-            <Input placeholder="ex - 158" onChange={handleChange} name="height" label="Height(cm)" value={objMetaData.gender} />
+            <Input placeholder="ex - 158" onChange={handleChange} name="height" label="Height(cm)" value={objMetaData.height} />
           </div>
           <div className={`${styles.fileUpload__col}`}>
             <Input
@@ -110,9 +115,8 @@ const FileUpload = () => {
             />
           </div>
         </div>
-
         <Input type="file" onChange={handleChange} name="file" label="Focal length of device camera" value={files} accept="video/*" />
-        <button className="button full" type="submit">
+        <button disabled={loading} className="button full" type="submit">
           Submit
         </button>
       </form>

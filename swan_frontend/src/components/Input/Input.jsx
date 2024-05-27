@@ -7,7 +7,19 @@ const Input = ({ type = "text", placeholder = "", accept = "", onChange, label =
     <div className={`${styles.input} ${type === "file" ? styles.inputFile : ``}`}>
       <label>{label}</label>
       <div className={`${styles.inputWrapper}`}>
-        <input type={type} placeholder={placeholder} accept={accept} onChange={onChange && onChange} name={name} multiple={multiple} />
+        {type === "file" ? (
+          <input type={type} accept={accept} onChange={onChange && onChange} name={name} multiple={multiple} />
+        ) : (
+          <input
+            type={type}
+            placeholder={placeholder}
+            accept={accept}
+            onChange={onChange && onChange}
+            name={name}
+            multiple={multiple}
+            value={value}
+          />
+        )}
         {type === "file" && value === "" ? (
           <>
             <img src={upload} alt="upload" />
