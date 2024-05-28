@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import Input from "../Input/Input";
 import ApiService from "../../services/ApiService";
 import styles from "./FileUpload.module.scss";
-
 import { toast } from "react-toastify";
+
 const apiService = new ApiService();
 const FileUpload = () => {
   const [loading, setLoading] = useState(false);
   const [objMetaData, setObjMetaData] = useState({
     gender: "",
-    email: "",
     focal_length: "",
     height: "",
     customer_store_url: "",
@@ -40,13 +39,11 @@ const FileUpload = () => {
         formData.append("file", videoFile);
       }
       const objMetaDataArray = Object.entries(objMetaData).map(([key, val]) => ({ [key]: val }));
-      objMetaDataArray.push({ scan_id });
       formData.append("scanId", scan_id);
       formData.append("arrayMetaData", JSON.stringify(objMetaDataArray));
       await apiService.fileUpload(formData);
       toast.success(`This is your scan id: ${scan_id} `);
     } catch (error) {
-      console.log(error);
       toast.error(error?.response?.data?.message || "something went wrong");
     } finally {
       setLoading(false);

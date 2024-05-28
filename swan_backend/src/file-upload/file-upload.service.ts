@@ -26,8 +26,7 @@ export class FileUploadService {
       customerConfig = await this.swan.custom.getCustomCustomerConfig(
         keyValuePairs.customer_store_url,
       );
-    } catch (e) {
-    }
+    } catch (e) {}
     if (!customerConfig) {
       try {
         let cusName = await this.swan.custom.createCustomer({
