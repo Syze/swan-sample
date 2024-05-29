@@ -1,8 +1,8 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import upload from "../../assets/images/upload-cloud.svg";
 import styles from "./Input.module.scss";
 
-const Input = ({ type = "text", placeholder = "", accept = "", onChange, label = "", name = "", multiple = false, value = "" }) => {
+const Input = forwardRef(({ type = "text", placeholder = "", accept = "", onChange, label = "", name = "", multiple = false, value = "" }, ref) => {
   return (
     <div className={`${styles.input} ${type === "file" ? styles.inputFile : ``}`}>
       <label>{label}</label>
@@ -11,6 +11,7 @@ const Input = ({ type = "text", placeholder = "", accept = "", onChange, label =
           <input type={type} accept={accept} onChange={onChange && onChange} name={name} multiple={multiple} />
         ) : (
           <input
+            ref={ref}
             type={type}
             placeholder={placeholder}
             accept={accept}
@@ -33,6 +34,6 @@ const Input = ({ type = "text", placeholder = "", accept = "", onChange, label =
       </div>
     </div>
   );
-};
+});
 
 export default Input;

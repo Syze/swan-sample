@@ -1,22 +1,16 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Input from "../Input/Input";
 import ApiService from "../../services/ApiService";
 import styles from "./FileUpload.module.scss";
 import { toast } from "react-toastify";
+import { DEFAULT_VALUE } from "../../constant/Constant";
 
 const apiService = new ApiService();
 const FileUpload = () => {
   const [loading, setLoading] = useState(false);
-  const [objMetaData, setObjMetaData] = useState({
-    gender: "",
-    focal_length: "",
-    height: "",
-    customer_store_url: "",
-    clothes_fit: "",
-    scan_type: "",
-    callback_url: "",
-  });
+  const [objMetaData, setObjMetaData] = useState(DEFAULT_VALUE);
   const [files, setFiles] = useState();
+  const InputRef = useRef();
   const handleChange = (event) => {
     const { value, name } = event.target;
     if (name === "file") {
@@ -43,6 +37,11 @@ const FileUpload = () => {
       formData.append("arrayMetaData", JSON.stringify(objMetaDataArray));
       await apiService.fileUpload(formData);
       toast.success(`This is your scan id: ${scan_id} `);
+      setObjMetaData(DEFAULT_VALUE);
+      if (InputRef && InputRef.current) {
+        InputRef.current.value = "";
+      }
+      setFiles("");
     } catch (error) {
       toast.error(error?.response?.data?.message || "something went wrong");
     } finally {
@@ -108,7 +107,7 @@ const FileUpload = () => {
             />
           </div>
         </div>
-        <Input type="file" onChange={handleChange} name="file" label="Video File" value={files} accept="video/*" />
+        <Input ref={InputRef} type="file" onChange={handleChange} name="file" label="Video File" value={files} accept="video/*" />
         <button disabled={loading} className="button full" type="submit">
           Submit
         </button>

@@ -5,7 +5,7 @@ import { FileUploadModule } from './file-upload/file-upload.module';
 import { ConfigModule } from './config/config.module';
 
 @Module({
-  imports: [FileUploadModule, ConfigModule],
+  imports: [ConfigModule, FileUploadModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -6,7 +6,7 @@ import Swan from '@swan-admin/swan-ai-measurements';
 export class FileUploadService {
   private swan: Swan;
   constructor() {
-    this.swan = new Swan(process.env.API_KEY, true);
+    this.swan = new Swan(process.env.API_KEY);
   }
   async uploadFile(file: Express.Multer.File, fileUploadDto: FileUploadDto) {
     if (!file) {
@@ -29,7 +29,7 @@ export class FileUploadService {
     } catch (e) {}
     if (!customerConfig) {
       try {
-        let cusName = await this.swan.custom.createCustomer({
+        await this.swan.custom.createCustomer({
           name: keyValuePairs.customer_store_url,
           storeUrl: keyValuePairs.customer_store_url,
           location: 'IE',
@@ -37,8 +37,8 @@ export class FileUploadService {
           emailsTier_1: null,
           emailsTier_2: null,
         });
-      } catch (e) {
-        throw new BadRequestException(e.response.data.message);
+      } catch (error) {
+        throw new BadRequestException(error.message);
       }
     }
 
